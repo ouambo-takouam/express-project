@@ -2,15 +2,32 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-app.get('/', (req, res) => {
-	res.send({
+const friends = [
+	{
+		id: 0,
+		name: 'Albert Einstein',
+	},
+	{
 		id: 1,
-		name: 'Issac Newton',
-	});
+		name: 'Georges Weya',
+	},
+];
+
+app.get('/friends', (req, res) => {
+	res.status(200).json(friends);
 });
 
-app.get('/messages', (req, res) => {
-	res.send('<ul><li>This is your message</li></ul>');
+app.get('/friends/:friendId', (req, res) => {
+	const { friendId } = req.params;
+	const friend = friends[+friendId];
+
+	if (friend) {
+		res.status(200).json(friend);
+	} else {
+		res.status(404).json({
+			error: 'Friend data not founded',
+		});
+	}
 });
 
 app.post('/messages', (req, res) => {
