@@ -2,6 +2,11 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+const {
+	getMessages,
+	postMessage,
+} = require('./controllers/messages.controller');
+
 const friends = [
 	{
 		id: 0,
@@ -33,6 +38,7 @@ app.post('/friends', (req, res) => {
 		});
 	}
 
+	// if data available
 	const newFriend = {
 		id: friends.length,
 		name,
@@ -58,6 +64,10 @@ app.get('/friends/:friendId', (req, res) => {
 		});
 	}
 });
+
+app.get('/messages', getMessages);
+
+app.post('/messages', postMessage);
 
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`);
