@@ -1,13 +1,4 @@
-const friends = [
-	{
-		id: 0,
-		name: 'Albert Einstein',
-	},
-	{
-		id: 1,
-		name: 'Georges Weya',
-	},
-];
+const friends = require('../models/friends.model');
 
 function postFriend(req, res) {
 	// req.body = {} or {prop: value}
