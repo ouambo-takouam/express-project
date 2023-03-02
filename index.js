@@ -7,16 +7,11 @@ const {
 	postMessage,
 } = require('./controllers/messages.controller');
 
-const friends = [
-	{
-		id: 0,
-		name: 'Albert Einstein',
-	},
-	{
-		id: 1,
-		name: 'Georges Weya',
-	},
-];
+const {
+	getFriends,
+	getFriend,
+	postFriend,
+} = require('./controllers/friends.controller');
 
 app.use((req, res, next) => {
 	const start = Date.now();
@@ -27,43 +22,11 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-app.post('/friends', (req, res) => {
-	// req.body = {} or {prop: value}
-	const { name } = req.body;
+app.post('/friends', postFriend);
 
-	// undefined
-	if (!name) {
-		return res.status(400).json({
-			error: 'Missing friend name',
-		});
-	}
+app.get('/friends', getFriends);
 
-	// if data available
-	const newFriend = {
-		id: friends.length,
-		name,
-	};
-	friends.push(newFriend);
-
-	res.status(200).json(newFriend);
-});
-
-app.get('/friends', (req, res) => {
-	res.status(200).json(friends);
-});
-
-app.get('/friends/:friendId', (req, res) => {
-	const { friendId } = req.params;
-	const friend = friends[+friendId];
-
-	if (friend) {
-		res.status(200).json(friend);
-	} else {
-		res.status(404).json({
-			error: 'Friend data not founded',
-		});
-	}
-});
+app.get('/friends/:friendId', getFriend);
 
 app.get('/messages', getMessages);
 

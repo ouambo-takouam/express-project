@@ -3,6 +3,7 @@ function getMessages(req, res) {
 }
 function postMessage(req, res) {
 	console.log('Updating messages');
+
 	return res.json({
 		message: req.body.message,
 	});
