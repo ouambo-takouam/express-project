@@ -30,10 +30,6 @@ app.get('/friends/:friendId', (req, res) => {
 	}
 });
 
-app.post('/messages', (req, res) => {
-	console.log('updating messages ...');
-});
-
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`);
 });
